@@ -11,6 +11,7 @@ flask = "*"
 numpy = "*"
 scipy = "*"
 flask-bootstrap = "*"
+opencv-python = "*"
 
 
 [dev-packages]
