@@ -1,2 +1,0 @@
-The project uses pipenv to manage dependancies, so you will need to install it.
-There should be a good tutorial on how to restore dependencies on https://github.com/kennethreitz/pipenv
