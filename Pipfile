@@ -12,6 +12,7 @@ numpy = "*"
 scipy = "*"
 flask-bootstrap = "*"
 opencv-python = "*"
+pylint = "*"
 
 
 [dev-packages]
