@@ -13,6 +13,7 @@ scipy = "*"
 flask-bootstrap = "*"
 opencv-python = "*"
 pylint = "*"
+ffmpeg-python = "*"
 
 
 [dev-packages]
