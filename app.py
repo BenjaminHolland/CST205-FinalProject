@@ -13,7 +13,7 @@ def home():
     video=None
     tracking_info=track_step.run(video)
     audio_info=audio_step.run(tracking_info)
-    new_video=merge_step(audio_info,video)
+    new_video=merge_step.run(audio_info,video)
     
 
     return None
