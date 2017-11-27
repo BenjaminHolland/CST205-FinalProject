@@ -1,24 +1,20 @@
-import ffmpeg
-from ffmpeg.nodes import *
+import subprocess
 """This step takes the generated audio data and the original video, and merges them together, outputting the final video"""
 
 def run(audio,video):
     local_audio=_convert_audio(audio)
     local_video=_convert_video(video)
-    result=ffmpeg.input(local_video,c='copy').input(local_audio,c='aac').output('test.mp4')
+   
     return 'test.mp4'
 def _test():
     audio_file='TestAudio1.wav'
     video_file='VideoTest1.mp4'
-    vi=ffmpeg.input(video_file,c='copy')
-    ai=ffmpeg.input(audio_file,c='aac')
-    help(ai)
-    (ffmpeg
+    inputs=f"-i {video_file} -i {audio_file}"
+    mapping="-map 0:0 -map 1:0"
+    codecs="-c:v copy -c:a aac"
+    bitrate="-b:a 256k"
+    subprocess.call(f"./bin/ffmpeg/bin/ffmpeg {inputs} {mapping} {codecs} {bitrate} -loglevel verbose output.mp4")
     
-        .input(video_file,c='copy')
-        .input(audio_file,c='aac')
-        .output('test.mp4')
-        .run())
 
 def _convert_audio(audio):
     return None
