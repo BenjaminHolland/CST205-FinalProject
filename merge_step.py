@@ -1,4 +1,5 @@
 import ffmpeg
+from ffmpeg.nodes import *
 """This step takes the generated audio data and the original video, and merges them together, outputting the final video"""
 
 def run(audio,video):
@@ -9,7 +10,9 @@ def run(audio,video):
 def _test():
     audio_file='TestAudio1.wav'
     video_file='VideoTest1.mp4'
-    
+    vi=ffmpeg.input(video_file,c='copy')
+    ai=ffmpeg.input(audio_file,c='aac')
+    help(ai)
     (ffmpeg
     
         .input(video_file,c='copy')

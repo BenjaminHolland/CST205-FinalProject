@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "32ee3b39476f9e298c4092217d2b46f73cef63a40952db96715c0102c4dab59d"
+            "sha256": "157b34b1126fe5785bb30e0ba2ef3ba887ca69c8762fcad8c8ceb774dd498cb1"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -55,12 +55,6 @@
             ],
             "version": "==2.3.1"
         },
-        "ffmpeg-python": {
-            "hashes": [
-                "sha256:401b2c6d86dc39a8d29d29292715e7ee6146767fc75de93494c9893cd0395cb0"
-            ],
-            "version": "==0.1.6"
-        },
         "flask": {
             "hashes": [
                 "sha256:0749df235e3ff61ac108f69ac178c9770caeaccad2509cb762ce1f65570a8856",
@@ -73,12 +67,6 @@
                 "sha256:cb08ed940183f6343a64e465e83b3a3f13c53e1baabb8d72b5da4545ef123ac8"
             ],
             "version": "==3.3.7.1"
-        },
-        "future": {
-            "hashes": [
-                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
-            ],
-            "version": "==0.16.0"
         },
         "isort": {
             "hashes": [
