@@ -20,4 +20,14 @@ def run(video):
         if returned == 0:
             break
 
+        # Convert the frame to the HSV color space
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+        # construct a mask for the red ball, then perform
+        # a series of dilations and erosions to remove any small
+        # blobs left in the mask
+        mask = cv2.inRange(hsv, redLower, redUpper)
+        mask = cv2.erode(mask, None, iterations=2)
+        mask = cv2.dilate(mask, None, iterations=2)
+
 run(video)
