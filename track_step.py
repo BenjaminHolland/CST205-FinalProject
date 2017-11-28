@@ -12,6 +12,9 @@ redUpper = (10, 255, 255)
 # Define video file (For testing, will get passed in from app.py)
 video = cv2.VideoCapture('static/VideoTest1.mp4')
 
+# Array to return (x, y) coordinates
+coordinates = []
+
 def run(video):
     while True:
         returned, frame = video.read()
@@ -23,14 +26,14 @@ def run(video):
         # Convert the frame to the HSV color space
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        # construct a mask for the red ball, then perform
+        # Construct a mask for the red ball, then perform
         # a series of dilations and erosions to remove any small
         # blobs left in the mask
         mask = cv2.inRange(hsv, redLower, redUpper)
         mask = cv2.erode(mask, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
 
-        # find contours in the mask and initialize the current
+        # Find contours in the mask and initialize the current
         # (x, y) center of the ball
         contours = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
             cv2.CHAIN_APPROX_SIMPLE)[-2]
@@ -39,13 +42,15 @@ def run(video):
         # Only proceed if at least one contour was found
         if len(contours) > 0:
             # find the largest contour in the mask, then use
-            # it to compute the minimum enclosing circle and
-            # centroid
+            # it to get (x, y) coordinates of the ball's center
             c = max(contours, key=cv2.contourArea)
             ((x, y), radius) = cv2.minEnclosingCircle(c)
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-        print((x,y))
+        # Add ball's center position to coordinate array
+        coordinates.append(center)
 
-run(video)
+    return coordinates
+
+# print(run(video))
