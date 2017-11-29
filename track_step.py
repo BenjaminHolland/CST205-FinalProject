@@ -15,7 +15,11 @@ video = cv2.VideoCapture('static/VideoTest1.mp4')
 # Array to return (x, y) coordinates
 coordinates = []
 
+# Array to return how the radius changes per frame
+radius_change = []
+
 def run(video):
+    previous_radius = -1;
     while True:
         returned, frame = video.read()
 
@@ -51,6 +55,14 @@ def run(video):
         # Add ball's center position to coordinate array
         coordinates.append(center)
 
-    return coordinates
+        # Get the change in radius
+        if previous_radius == -1:
+            previous_radius = radius;
+        change_in_size = (radius - previous_radius)
 
-# print(run(video))
+        # Append change in radius to radius_change Array
+        radius_change.append(int(change_in_size))
+
+    return coordinates, radius_change
+
+print(run(video))
