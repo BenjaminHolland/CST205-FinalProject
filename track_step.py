@@ -60,7 +60,7 @@ def run(video):
             previous_radius = radius;
         change_in_size = (radius - previous_radius)
 
-        # Append change in radius to radius_change Array
+        # Append change in radius to radius_change array
         radius_change.append(int(change_in_size))
 
     return coordinates, radius_change
