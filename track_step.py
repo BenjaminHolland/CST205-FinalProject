@@ -9,9 +9,6 @@ import cv2
 redLower = (0, 100, 100)
 redUpper = (10, 255, 255)
 
-# Define video file (For testing, will get passed in from app.py)
-video = cv2.VideoCapture('static/VideoTest1.mp4')
-
 # Array to return (x, y) coordinates
 coordinates = []
 
@@ -19,9 +16,10 @@ coordinates = []
 radius_change = []
 
 def run(video):
+    cv2_video = cv2.VideoCapture(video)
     previous_radius = -1;
     while True:
-        returned, frame = video.read()
+        returned, frame = cv2_video.read()
 
         # Once the video has not returned a frame, the video is over
         if returned == 0:
@@ -64,5 +62,3 @@ def run(video):
         radius_change.append(int(change_in_size))
 
     return coordinates, radius_change
-
-print(run(video))
