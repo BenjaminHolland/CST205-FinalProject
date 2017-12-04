@@ -1,0 +1,12 @@
+The project uses pipenv to manage dependancies, so you will need to install it.
+There should be a good tutorial on how to restore dependencies on https://github.com/kennethreitz/pipenv
+
+Pipenv Install/Usage instructions:
+1. from a fresh command line, run "pip install --user pipenv"
+2. add the user python script folder to the path. This should be  .../AppData/Roaming/Python36/Scripts, or {python install location}/Scripts if you didn't use the --user argument.
+3. restart the shell and navigate to the project folder
+4. run "pipenv install". This will install the dependencies for the project.
+5. run "pipenv shell". This activates the virtual environment.
+NOTE: There is currently a bug that causes this to launch a command prompt instead of powershell. To fix this, once you run step 5, also run "powershell ."
+6. run ./launch.ps1. This will launch flask.
+

@@ -7,11 +7,12 @@ name = "pypi"
 
 [packages]
 
-flask = "*"
+Flask = "*"
 numpy = "*"
 scipy = "*"
-flask-bootstrap = "*"
+Flask-Bootstrap = "*"
 opencv-python = "*"
+pylint = "*"
 
 
 [dev-packages]
