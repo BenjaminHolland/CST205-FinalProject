@@ -3,8 +3,8 @@ import numpy as np
 from scipy.io.wavfile import write
 
 def run(tracking):
-    pass
-  
+    create_audio(tracking)
+
 def create_audio(tracking):
     samples_s = 44100
     duration_s = 1.0

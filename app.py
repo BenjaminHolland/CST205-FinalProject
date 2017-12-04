@@ -11,6 +11,6 @@ Bootstrap(app)
 def home():
     #do some sort of upload storage before this point, and store in 'video'
     video='static/VideoTest1.mp4'
-    tracking_info=track_step.run(video)
-    audio_info=audio_step.run(tracking_info)
+    tracking_coordinates, tracking_radius_change = track_step.run(video)
+    audio_info=audio_step.run(tracking_coordinates)
     new_video=merge_step.run(audio_info,video)
