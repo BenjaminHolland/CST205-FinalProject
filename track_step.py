@@ -1,5 +1,11 @@
-"""This module provides functionality that turns the original video into tracking information"""
-""" Help from: https://www.pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/ """
+# Title: track_step.py
+# Abstract: This module provides functionality that turns the
+#           original video into tracking information.
+# Author: Joseph Martineau
+# Class: CST205 - Multimedia Programming
+# Date: 12/11/2017
+
+# Help from: https://www.pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/
 
 import numpy as np
 import cv2
