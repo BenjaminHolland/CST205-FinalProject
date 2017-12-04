@@ -7,7 +7,7 @@ import merge_step
 app=Flask(__name__)
 Bootstrap(app)
 
-@app.route('/' methods=['GET', 'POST'])
+@app.route('/')
 def home():
     #do some sort of upload storage before this point, and store in 'video'
     video=None
