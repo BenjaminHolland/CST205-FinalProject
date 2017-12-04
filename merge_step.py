@@ -7,8 +7,8 @@ def run(audio,video):
    
     return 'test.mp4'
 def _test():
-    audio_file='TestAudio1.wav'
-    video_file='VideoTest1.mp4'
+    audio_file='static/TestAudio1.wav'
+    video_file='static/VideoTest1.mp4'
     inputs=f"-i {video_file} -i {audio_file}"
     mapping="-map 0:0 -map 1:0"
     codecs="-c:v copy -c:a aac"
