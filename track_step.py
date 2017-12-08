@@ -10,7 +10,7 @@ redLower = (0, 100, 100)
 redUpper = (10, 255, 255)
 
 # Define video file (For testing, will get passed in from app.py)
-video = cv2.VideoCapture('static/VideoTest1.mp4')
+#video = cv2.VideoCapture('static/VideoTest1.mp4')
 
 # Array to return (x, y) coordinates
 coordinates = []
@@ -65,4 +65,4 @@ def run(video):
 
     return coordinates, radius_change
 
-print(run(video))
+#print(run(video))
