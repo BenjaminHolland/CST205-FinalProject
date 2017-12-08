@@ -1,0 +1,24 @@
+<!--Created by: Jacob A. Erickson
+Last Modified: 10/29/17
+Created for Course: CST 205 - 1 Multimedia Design & Programing
+The html code that styles the home page of the website created by Homework_4.py.-->
+
+{% extends "bootstrap/base.html" %}
+{% block content %}
+
+<div class-="container">
+
+<h1>Let's Dub Some Audio!!!</h1>
+
+<form method="post">
+  <p>
+    Please click browse to upload a video to add the audio for.
+  </p>
+  <input type="file" name="file" accept="video/*" multiple>
+  <input type="submit" value="send">
+</form>
+
+
+
+</div>
+{% endblock %}
