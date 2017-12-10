@@ -24,8 +24,8 @@ def home():
 
     if request.method == 'POST':
         video = request.files['file']
-        video.save('uploaded_video.mp4')
-        tracking_info = track_step.run(cv2.VideoCapture('uploaded_video.mp4'))
+        video.save('static/uploaded_video.mp4')
+        tracking_info = track_step.run(cv2.VideoCapture('static/uploaded_video.mp4'))
         audio_info=audio_step.run(tracking_info)
         new_video=merge_step.run(audio_info,video)
         return redirect(url_for('home'))
