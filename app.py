@@ -34,12 +34,18 @@ def home():
     new_video=None
 
     if request.method == 'POST':
+    
         video_id=uuid.uuid4().hex;
+        print(f"procing file {video_id}")
         video_path=f"static/{video_id}.mp4";
         video = request.files['file']
         video.save(video_path)
+        
+        print(f"getting track info for {video_id}")
         tracking_info = track_step.run(cv2.VideoCapture(video_path))
+        print(f"generating audio for {video_id}")
         audio_path=audio_step.run(tracking_info,video_id)
+        print(f"mergin {video_id}")
         new_video_file=merge_step.run(video_id)
         return send_from_directory('static',new_video_file)
 

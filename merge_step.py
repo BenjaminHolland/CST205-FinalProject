@@ -17,7 +17,8 @@ def run(video_id):
     mapping="-map 0:0 -map 1:0"
     codecs="-c:v copy -c:a aac"
     bitrate="-b:a 256k"
-    subprocess.call(f"./bin/ffmpeg/bin/ffmpeg {inputs} {mapping} {codecs} {bitrate} -loglevel verbose {output_file}")
+    # -loglevel verbose
+    subprocess.call(f"./bin/ffmpeg/bin/ffmpeg {inputs} {mapping} {codecs} {bitrate} {output_file}")
     return f'{video_id}.output.mp4'
 
 if(__name__=='__main__'):
