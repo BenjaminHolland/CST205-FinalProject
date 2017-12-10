@@ -23,6 +23,20 @@ app=Flask(__name__)
 Bootstrap(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+#@app.route('/' methods=['GET', 'POST'])
+def home():
+    #do some sort of upload storage before this point, and store in 'video'
+    video=None
+    tracking_info=track_step.run(video)
+    audio_info=audio_step.run(tracking_info)
+    new_video=merge_step.run(audio_info,video)
+#<<<<<<< HEAD
+
+
+
+
+    return None
+#=======
 @app.route('/', methods=['GET', 'POST'])
 def home():
     #do some sort of upload storage before this point, and store in 'video'
@@ -44,3 +58,4 @@ def home():
         return send_from_directory('test_files',new_video_file)
 
     return render_template('home.html')
+#>>>>>>> 7671fd093b3fcd980a062f0494aa34907698b8be

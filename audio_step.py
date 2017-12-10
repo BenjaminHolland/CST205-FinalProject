@@ -7,6 +7,7 @@
 # Date: 12/11/2017
 
 import numpy as np
+
 from scipy.io.wavfile import write
 
 def run(tracking,video_id):
@@ -15,7 +16,7 @@ def run(tracking,video_id):
 def create_audio(tracking,video_id):
 
     samples_s = 44100
-    duration_s = 0.2
+    duration_s = 0.15
 
     waveform = []
     waveform_2 = []
