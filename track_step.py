@@ -64,5 +64,5 @@ def run(video):
         radius_change.append(int(change_in_size))
 
     return coordinates, radius_change
-
+  
 #print(run(video))
