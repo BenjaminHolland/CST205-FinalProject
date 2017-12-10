@@ -22,7 +22,8 @@ def create_audio(tracking,video_id):
 
     note=0
     speed=0
-    for coord,dr in tracking:
+    fps=tracking[0]
+    for coord,dr in tracking[1]:
         #if we're missing a coord, just use the values from last frame.
         if(coord!=None):
             note = 400 + coord[0]
