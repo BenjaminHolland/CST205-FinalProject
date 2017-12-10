@@ -3,11 +3,11 @@ import numpy as np
 from scipy.io.wavfile import write
 
 def run(tracking):
-    pass
+    create_audio(tracking)
 
 def create_audio(tracking):
     samples_s = 44100
-    duration_s = 1.0
+    duration_s = 0.2
 
     waveform = []
     waveform_2 = []
@@ -28,4 +28,4 @@ def create_audio(tracking):
     waveform_integers = np.int16(waveform_quiet * 32767)
     waveform_integers_2 = np.int16(waveform_quiet_2 * 32767)
 
-    write('created_sound.wav', samples_s, (waveform_integers + waveform_integers_2))
+    write('static/created_sound.wav', samples_s, (waveform_integers + waveform_integers_2))
