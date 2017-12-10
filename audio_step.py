@@ -37,7 +37,7 @@ class SinWave:
         self.target_frequency=freq
 
 
-def create_audio2(tracking,video_id):
+def create_audio2(tracking_info, idcount):
     sample_rate=44100
     video_info=tracking[0]
     tracking_info=tracking[1]
@@ -67,8 +67,8 @@ def create_audio2(tracking,video_id):
         waveform=np.append(waveform,frame_waveform)
 
     formatted_waveform=np.int16(waveform * 32767)
-    write(f'test_files/{video_id}.wav',sample_rate, formatted_waveform)
-    return 'test_files/{video_id}.wav'
+    write(f'test_files/audio_{str(idcount)}.wav', sample_rate, formatted_waveform)
+    return f'test_files/audio_{str(idcount)}.wav'
 
 def create_audio(tracking,video_id):
 

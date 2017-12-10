@@ -8,10 +8,10 @@
 
 import subprocess
 
-def run(video_id):
-    audio_file=f'test_files/{video_id}.wav'
-    video_file=f'test_files/{video_id}.mp4'
-    output_file=f'test_files/{video_id}.output.mp4'
+def run(id_count):
+    audio_file=f'test_files/audio_{str(idcount)}.wav'
+    video_file=f'test_files/video_{str(idcount)}.mp4'
+    output_file=f'test_files/output_{str(idcount)}.mp4'
     inputs=f"-i {video_file} -i {audio_file}"
     mapping="-map 0:0 -map 1:0"
     codecs="-c:v copy -c:a aac"

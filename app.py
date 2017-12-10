@@ -23,19 +23,21 @@ app=Flask(__name__)
 Bootstrap(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+counter = 0
+
 #@app.route('/' methods=['GET', 'POST'])
-def home():
+###def home():
     #do some sort of upload storage before this point, and store in 'video'
-    video=None
-    tracking_info=track_step.run(video)
-    audio_info=audio_step.run(tracking_info)
-    new_video=merge_step.run(audio_info,video)
+#    video=None
+#    tracking_info=track_step.run(video)
+#    audio_info=audio_step.run(tracking_info)
+#    new_video=merge_step.run(audio_info,video)
 #<<<<<<< HEAD
 
 
 
 
-    return None
+#    return None
 #=======
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -48,13 +50,12 @@ def home():
     new_video=None
 
     if request.method == 'POST':
-        video_id=uuid.uuid4().hex;
-        video_path=f"test_files/{video_id}.mp4";
+        video_path=f"test_files/video_{str(counter)}.mp4";
         video = request.files['file']
         video.save(video_path)
         tracking_info = track_step.run(cv2.VideoCapture(video_path))
-        audio_path=audio_step.run(tracking_info,video_id)
-        new_video_file=merge_step.run(video_id)
+        audio_path=audio_step.run(tracking_info, counter)
+        new_video_file=merge_step.run(counter)
         return send_from_directory('test_files',new_video_file)
 
     return render_template('home.html')
