@@ -7,16 +7,16 @@
 # Date: 12/11/2017
 
 import subprocess
-"""This step takes the generated audio data and the original video, and merges them together, outputting the final video"""
 
 def run(audio,video):
     local_audio=_convert_audio(audio)
     local_video=_convert_video(video)
-
+    _test()
     return 'test.mp4'
+
 def _test():
-    audio_file='static/TestAudio1.wav'
-    video_file='static/VideoTest1.mp4'
+    audio_file='static/created_sound.wav'
+    video_file='static/uploaded_video.mp4'
     inputs=f"-i {video_file} -i {audio_file}"
     mapping="-map 0:0 -map 1:0"
     codecs="-c:v copy -c:a aac"

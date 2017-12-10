@@ -4,7 +4,6 @@
 # Author: Joseph Martineau
 # Class: CST205 - Multimedia Programming
 # Date: 12/11/2017
-
 # Help from: https://www.pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/
 
 import numpy as np
@@ -22,10 +21,9 @@ coordinates = []
 radius_change = []
 
 def run(video):
-    cv2_video = cv2.VideoCapture(video)
     previous_radius = -1;
     while True:
-        returned, frame = cv2_video.read()
+        returned, frame = video.read()
 
         # Once the video has not returned a frame, the video is over
         if returned == 0:
@@ -67,4 +65,4 @@ def run(video):
         # Append change in radius to radius_change array
         radius_change.append(int(change_in_size))
 
-    return coordinates, radius_change
+    return coordinates #, radius_change
