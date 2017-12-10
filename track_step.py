@@ -14,13 +14,15 @@ import cv2
 redLower = (0, 100, 100)
 redUpper = (10, 255, 255)
 
-# Array to return (x, y) coordinates
-coordinates = []
-
-# Array to return how the radius changes per frame
-radius_change = []
 
 def run(video):
+    
+    # Array to return (x, y) coordinates
+    coordinates = []
+
+    # Array to return how the radius changes per frame
+    radius_change = []
+
     previous_radius = -1;
     
     # get framerate. 
