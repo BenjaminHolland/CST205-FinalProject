@@ -20,9 +20,13 @@ def create_audio(tracking,video_id):
     waveform = []
     waveform_2 = []
 
+    note=0
+    speed=0
     for coord,dr in tracking:
-        note = 400 + coord[0]
-        speed = item[1] / 1000
+        #if we're missing a coord, just use the values from last frame.
+        if(coord!=None):
+            note = 400 + coord[0]
+            speed = coord[1] / 1000
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)
         sample_nums_y = np.arange(speed * samples_s)

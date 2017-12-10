@@ -22,9 +22,19 @@ radius_change = []
 
 def run(video):
     previous_radius = -1;
+    
+    # get framerate. 
+    # Find OpenCV version
+    (major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
+    fps=30
+    if int(major_ver)  < 3 :
+        fps = video.get(cv2.cv.CV_CAP_PROP_FPS)
+    else :
+        fps = video.get(cv2.CAP_PROP_FPS)
     while True:
         returned, frame = video.read()
-
+   
+     
         # Once the video has not returned a frame, the video is over
         if returned == 0:
             break
@@ -65,4 +75,4 @@ def run(video):
         # Append change in radius to radius_change array
         radius_change.append(int(change_in_size))
 
-    return zip(coordinates,radius_change) #, radius_change
+    return (fps,zip(coordinates,radius_change)) #, radius_change
