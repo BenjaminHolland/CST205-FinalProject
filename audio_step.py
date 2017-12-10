@@ -35,6 +35,9 @@ class SinWave:
 
     def change_frequency(self,freq):
         self.target_frequency=freq
+    def change_amplitude(self,amp):
+        self.current_amplitude=amp
+        
 
 
 def create_audio2(tracking_info, idcount):
@@ -52,13 +55,27 @@ def create_audio2(tracking_info, idcount):
 
     wave1=SinWave(44100,440,0.2)
     wave2=SinWave(44100,440,0.2)
+    dx=0
+    dy=0
+    px=0
+    py=0
+    first=True
     for center,dr in tracking_info:
         sample_start=sample;
         sample_end=sample+samples_per_frame
         if(center!=None):
-            wave1.change_frequency(calc_note(lerp(40,52,center[0]/width)))
-            wave2.change_frequency(calc_note(lerp(40,52,center[1]/height)))
+            
+            nx=(center[0]-width/2)/width
+            ny=(center[1]-height/2)/height
+           
+            dx=0.5+nx; #[0,1]
+            dy=0.5+ny; #[0,1]
+            d=np.sqrt(dx*dx+dy*dy)/np.sqrt(2)
+            a=(1+np.arctan2(dy,dx)/np.pi)*0.5
 
+            wave1.change_frequency(calc_note(int(lerp(40,52,d))))
+            wave2.change_frequency(calc_note(int(lerp(20,40,a))))
+            
         frame_waveform1=np.array([wave1.sample() for _ in range(0,samples_per_frame)])
         frame_waveform2=np.array([wave2.sample() for _ in range(0,samples_per_frame)])
         frame_waveform=np.add(frame_waveform1,frame_waveform2)
@@ -67,8 +84,14 @@ def create_audio2(tracking_info, idcount):
         waveform=np.append(waveform,frame_waveform)
 
     formatted_waveform=np.int16(waveform * 32767)
+<<<<<<< HEAD
     write(f'test_files/audio_{str(idcount)}.wav', sample_rate, formatted_waveform)
     return f'test_files/audio_{str(idcount)}.wav'
+=======
+    print(f'generated {len(formatted_wave)} samples.)
+    write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
+    return 'static/{video_id}.wav'
+>>>>>>> master
 
 def create_audio(tracking,video_id):
 
@@ -95,5 +118,5 @@ def create_audio(tracking,video_id):
     waveform_integers = np.int16(waveform_quiet * 32767)
     waveform_integers_2 = np.int16(waveform_quiet_2 * 32767)
 
-    write(f'test_files/{video_id}.wav', samples_s, (waveform_integers + waveform_integers_2))
-    return 'test_files/{video_id}.wav'
+    write(f'static/{video_id}.wav', samples_s, (waveform_integers + waveform_integers_2))
+    return 'static/{video_id}.wav'

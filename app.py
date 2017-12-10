@@ -23,6 +23,7 @@ app=Flask(__name__)
 Bootstrap(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+<<<<<<< HEAD
 counter = 0
 
 #@app.route('/' methods=['GET', 'POST'])
@@ -39,6 +40,8 @@ counter = 0
 
 #    return None
 #=======
+=======
+>>>>>>> master
 @app.route('/', methods=['GET', 'POST'])
 def home():
     #do some sort of upload storage before this point, and store in 'video'
@@ -50,13 +53,30 @@ def home():
     new_video=None
 
     if request.method == 'POST':
+<<<<<<< HEAD
         video_path=f"test_files/video_{str(counter)}.mp4";
+=======
+    
+        video_id=uuid.uuid4().hex;
+        print(f"procing file {video_id}")
+        video_path=f"static/{video_id}.mp4";
+>>>>>>> master
         video = request.files['file']
         video.save(video_path)
+        
+        print(f"getting track info for {video_id}")
         tracking_info = track_step.run(cv2.VideoCapture(video_path))
+<<<<<<< HEAD
         audio_path=audio_step.run(tracking_info, counter)
         new_video_file=merge_step.run(counter)
         return send_from_directory('test_files',new_video_file)
+=======
+        print(f"generating audio for {video_id}")
+        audio_path=audio_step.run(tracking_info,video_id)
+        print(f"mergin {video_id}")
+        new_video_file=merge_step.run(video_id)
+        return send_from_directory('static',new_video_file)
+>>>>>>> master
 
     return render_template('home.html')
-#>>>>>>> 7671fd093b3fcd980a062f0494aa34907698b8be
+
