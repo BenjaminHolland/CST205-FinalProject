@@ -4,17 +4,18 @@ import subprocess
 def run(audio,video):
     local_audio=_convert_audio(audio)
     local_video=_convert_video(video)
-   
+    _test()
     return 'test.mp4'
+
 def _test():
-    audio_file='static/TestAudio1.wav'
-    video_file='static/VideoTest1.mp4'
+    audio_file='static/created_sound.wav'
+    video_file='static/uploaded_video.mp4'
     inputs=f"-i {video_file} -i {audio_file}"
     mapping="-map 0:0 -map 1:0"
     codecs="-c:v copy -c:a aac"
     bitrate="-b:a 256k"
     subprocess.call(f"./bin/ffmpeg/bin/ffmpeg {inputs} {mapping} {codecs} {bitrate} -loglevel verbose output.mp4")
-    
+
 
 def _convert_audio(audio):
     return None
