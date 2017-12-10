@@ -17,7 +17,7 @@ def run(video_id):
     codecs="-c:v copy -c:a aac"
     bitrate="-b:a 256k"
     subprocess.call(f"./bin/ffmpeg/bin/ffmpeg {inputs} {mapping} {codecs} {bitrate} -loglevel verbose {output_file}")
-    return output_file
+    return f'{video_id}.output.mp4'
     
 def _convert_audio(audio):
     return None

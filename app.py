@@ -39,9 +39,8 @@ def home():
         video = request.files['file']
         video.save(video_path)
         tracking_info = track_step.run(cv2.VideoCapture(video_path))
-        audio_path=audio_step.run(tracking_info)
-        new_video_path=merge_step.run(audio_info,video_id)
-
-        return redirect(url_for('home'))
+        audio_path=audio_step.run(tracking_info,video_id)
+        new_video_file=merge_step.run(video_id)
+        return send_from_directory('static',new_video_file)
 
     return render_template('home.html')

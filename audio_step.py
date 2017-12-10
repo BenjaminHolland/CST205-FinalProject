@@ -9,8 +9,8 @@
 import numpy as np
 from scipy.io.wavfile import write
 
-def run(tracking):
-    create_audio(tracking)
+def run(tracking,video_id):
+    create_audio(tracking,video_id)
 
 def create_audio(tracking,video_id):
     samples_s = 44100
