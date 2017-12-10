@@ -56,8 +56,8 @@ def create_audio2(tracking,video_id):
         sample_start=sample;
         sample_end=sample+samples_per_frame
         if(center!=None):
-            wave1.change_frequency(calc_note(lerp(40,52,center[0]/width)))
-            wave2.change_frequency(calc_note(lerp(40,52,center[1]/height)))
+            wave1.change_frequency(calc_note(int(lerp(40,52,center[0]/width))))
+            wave2.change_frequency(calc_note(int(lerp(40,52,center[1]/height))))
 
         frame_waveform1=np.array([wave1.sample() for _ in range(0,samples_per_frame)])
         frame_waveform2=np.array([wave2.sample() for _ in range(0,samples_per_frame)])
@@ -79,7 +79,7 @@ def create_audio(tracking,video_id):
     waveform_2 = []
 
 
-   for coord,dr in tracking:
+    for coord,dr in tracking:
         note = 400 + coord[0]
         speed = coord[1] / 1000
 
