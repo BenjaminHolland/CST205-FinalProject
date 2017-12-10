@@ -13,7 +13,7 @@ def run(tracking,video_id):
     create_audio(tracking,video_id)
 
 def create_audio(tracking,video_id):
-     
+
     samples_s = 44100
     duration_s = 0.2
 
@@ -22,7 +22,7 @@ def create_audio(tracking,video_id):
 
     for coord,dr in tracking:
         note = 400 + coord[0]
-        speed = item[1] / 1000
+        speed = coord[1] / 1000
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)
         sample_nums_y = np.arange(speed * samples_s)
@@ -36,5 +36,5 @@ def create_audio(tracking,video_id):
     waveform_integers = np.int16(waveform_quiet * 32767)
     waveform_integers_2 = np.int16(waveform_quiet_2 * 32767)
 
-    write(f'static/{video_id}.wav', samples_s, (waveform_integers + waveform_integers_2))
-    return 'static/{video_id}.wav'
+    write(f'test_files/{video_id}.wav', samples_s, (waveform_integers + waveform_integers_2))
+    return 'test_files/{video_id}.wav'
