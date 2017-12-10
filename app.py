@@ -1,5 +1,12 @@
+# Title: app.py
+# Abstract: This program tracks an object in a video, and re-encodes
+#           that video with sound based on the object's movement.
+# Authors: Jacob Erickson, Ben Holland, Joseph Martineau
+# Class: CST205 - Multimedia Programming
+# Date: 12/11/2017
+# GitHub Link: https://github.com/BenjaminHolland/CST205-FinalProject
 
-import sys
+
 from flask import Flask, render_template, send_from_directory, url_for, request, redirect
 from flask_bootstrap import Bootstrap
 import track_step
@@ -7,6 +14,7 @@ import audio_step
 import merge_step
 import numpy as np
 import cv2
+import sys
 
 UPLOAD_FOLDER = '/uploads'
 

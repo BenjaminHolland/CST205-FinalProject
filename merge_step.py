@@ -1,5 +1,12 @@
+# Title: merge_step.py
+# Abstract: This module takes in tracking information generated
+#           by the track_step module, and generates audio data
+#           based on that information.
+# Author: Ben Holland
+# Class: CST205 - Multimedia Programming
+# Date: 12/11/2017
+
 import subprocess
-"""This step takes the generated audio data and the original video, and merges them together, outputting the final video"""
 
 def run(audio,video):
     local_audio=_convert_audio(audio)
