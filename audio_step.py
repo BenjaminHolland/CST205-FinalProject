@@ -7,6 +7,7 @@
 # Date: 12/11/2017
 
 import numpy as np
+
 from scipy.io.wavfile import write
 from scipy.interpolate import interp1d
 def calc_note(n):
@@ -70,23 +71,18 @@ def create_audio2(tracking,video_id):
     return 'static/{video_id}.wav'
 
 def create_audio(tracking,video_id):
-    
+
     samples_s = 44100
-    duration_s = 0.2
+    duration_s = 0.15
 
     waveform = []
     waveform_2 = []
 
-    note=0
-    speed=0
-    fps=tracking[0][0]
-    length=tracking[0][1]
-    print(f'{length}s')
-    for coord,dr in tracking[1]:
-        #if we're missing a coord, just use the values from last frame.
-        if(coord!=None):
-            note = 400 + coord[0]
-            speed = coord[1] / 1000
+
+   for coord,dr in tracking:
+        note = 400 + coord[0]
+        speed = coord[1] / 1000
+
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)
         sample_nums_y = np.arange(speed * samples_s)
@@ -100,5 +96,5 @@ def create_audio(tracking,video_id):
     waveform_integers = np.int16(waveform_quiet * 32767)
     waveform_integers_2 = np.int16(waveform_quiet_2 * 32767)
 
-    write(f'static/{video_id}.wav', samples_s, (waveform_integers + waveform_integers_2))
-    return 'static/{video_id}.wav'
+    write(f'test_files/{video_id}.wav', samples_s, (waveform_integers + waveform_integers_2))
+    return 'test_files/{video_id}.wav'
