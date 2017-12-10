@@ -9,9 +9,66 @@
 import numpy as np
 
 from scipy.io.wavfile import write
+from scipy.interpolate import interp1d
+def calc_note(n):
+    return 440*np.power(np.power(2,1/12.0),n-49)
+notes=list([calc_note(i) for i in range(40,52)])
 
+def lerp(a,b,x):
+    return a+x*(b-a)
 def run(tracking,video_id):
-    create_audio(tracking,video_id)
+    create_audio2(tracking,video_id)
+class SinWave:
+    def __init__(self,sample_rate,freq,amp):
+        self.phase_step=np.pi*2*freq/sample_rate
+        self.current_frequency=freq
+        self.current_amplitude=amp
+        self.target_frequency=freq
+        self.target_amplitude=amp
+        self.phase=0
+        self.sample_rate=sample_rate
+    def sample(self):
+        self.current_frequency=self.current_frequency+(self.target_frequency-self.current_frequency)*0.001
+        self.phase_step=(np.pi*2*self.current_frequency)/self.sample_rate
+        self.phase=self.phase+self.phase_step
+        return self.current_amplitude*np.sin(self.phase)
+
+    def change_frequency(self,freq):
+        self.target_frequency=freq
+
+
+def create_audio2(tracking,video_id):
+    sample_rate=44100
+    video_info=tracking[0]
+    tracking_info=tracking[1]
+    samples_per_frame=int(sample_rate/video_info[0])
+    total_samples=sample_rate*video_info[1]
+    target_note=0
+
+    sample=0
+    waveform=np.array([0])
+    width=video_info[2]
+    height=video_info[3]
+
+    wave1=SinWave(44100,440,0.2)
+    wave2=SinWave(44100,440,0.2)
+    for center,dr in tracking_info:
+        sample_start=sample;
+        sample_end=sample+samples_per_frame
+        if(center!=None):
+            wave1.change_frequency(calc_note(lerp(40,52,center[0]/width)))
+            wave2.change_frequency(calc_note(lerp(40,52,center[1]/height)))
+
+        frame_waveform1=np.array([wave1.sample() for _ in range(0,samples_per_frame)])
+        frame_waveform2=np.array([wave2.sample() for _ in range(0,samples_per_frame)])
+        frame_waveform=np.add(frame_waveform1,frame_waveform2)
+
+        sample=sample+samples_per_frame
+        waveform=np.append(waveform,frame_waveform)
+
+    formatted_waveform=np.int16(waveform * 32767)
+    write(f'test_files/{video_id}.wav',sample_rate, formatted_waveform)
+    return 'test_files/{video_id}.wav'
 
 def create_audio(tracking,video_id):
 
@@ -24,6 +81,7 @@ def create_audio(tracking,video_id):
     for coord,dr in tracking:
         note = 400 + coord[0]
         speed = coord[1] / 1000
+
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)
         sample_nums_y = np.arange(speed * samples_s)
