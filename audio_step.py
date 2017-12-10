@@ -109,7 +109,7 @@ def create_audio2(tracking,video_id):
 
     #output the waveform
     formatted_waveform=np.int16(waveform * 32767)
-    print(f'generated {len(formatted_wave)} samples.)
+    print(f'generated {len(formatted_waveform)} samples')
     write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
     return 'static/{video_id}.wav'
 
