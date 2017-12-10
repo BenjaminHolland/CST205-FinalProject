@@ -13,14 +13,15 @@ def run(tracking,video_id):
     create_audio(tracking,video_id)
 
 def create_audio(tracking,video_id):
+     
     samples_s = 44100
     duration_s = 0.2
 
     waveform = []
     waveform_2 = []
 
-    for item in tracking:
-        note = 400 + item[0]
+    for coord,dr in tracking:
+        note = 400 + coord[0]
         speed = item[1] / 1000
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)

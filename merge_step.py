@@ -18,11 +18,6 @@ def run(video_id):
     bitrate="-b:a 256k"
     subprocess.call(f"./bin/ffmpeg/bin/ffmpeg {inputs} {mapping} {codecs} {bitrate} -loglevel verbose {output_file}")
     return f'{video_id}.output.mp4'
-    
-def _convert_audio(audio):
-    return None
-def _convert_video(video):
-    return None
 
 if(__name__=='__main__'):
     _test()
