@@ -36,7 +36,7 @@ class SinWave:
     def change_frequency(self,freq):
         self.target_frequency=freq
 
-        
+
 def create_audio2(tracking,video_id):
     sample_rate=44100
     video_info=tracking[0]
@@ -44,7 +44,7 @@ def create_audio2(tracking,video_id):
     samples_per_frame=int(sample_rate/video_info[0])
     total_samples=sample_rate*video_info[1]
     target_note=0
-    
+
     sample=0
     waveform=np.array([0])
     width=video_info[2]
@@ -65,10 +65,10 @@ def create_audio2(tracking,video_id):
 
         sample=sample+samples_per_frame
         waveform=np.append(waveform,frame_waveform)
-    
+
     formatted_waveform=np.int16(waveform * 32767)
-    write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
-    return 'static/{video_id}.wav'
+    write(f'test_files/{video_id}.wav',sample_rate, formatted_waveform)
+    return 'test_files/{video_id}.wav'
 
 def create_audio(tracking,video_id):
 
@@ -78,8 +78,7 @@ def create_audio(tracking,video_id):
     waveform = []
     waveform_2 = []
 
-
-   for coord,dr in tracking:
+    for coord,dr in tracking:
         note = 400 + coord[0]
         speed = coord[1] / 1000
 
