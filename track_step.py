@@ -65,4 +65,4 @@ def run(video):
         # Append change in radius to radius_change array
         radius_change.append(int(change_in_size))
 
-    return coordinates #, radius_change
+    return zip(coordinates,radius_change) #, radius_change

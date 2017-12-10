@@ -15,6 +15,7 @@ import merge_step
 import numpy as np
 import cv2
 import sys
+import uuid
 
 UPLOAD_FOLDER = '/uploads'
 
@@ -39,17 +40,22 @@ def home():
 @app.route('/', methods=['GET', 'POST'])
 def home():
     #do some sort of upload storage before this point, and store in 'video'
+
+
     video=None
     tracking_info=None
     audio_info=None
     new_video=None
 
     if request.method == 'POST':
+        video_id=uuid.uuid4().hex;
+        video_path=f"test_files/{video_id}.mp4";
         video = request.files['file']
-        video.save('static/uploaded_video.mp4')
-        tracking_info = track_step.run(cv2.VideoCapture('static/uploaded_video.mp4'))
-        audio_info=audio_step.run(tracking_info)
-        new_video=merge_step.run(audio_info,video)
-        return redirect(url_for('home'))
+        video.save(video_path)
+        tracking_info = track_step.run(cv2.VideoCapture(video_path))
+        audio_path=audio_step.run(tracking_info,video_id)
+        new_video_file=merge_step.run(video_id)
+        return send_from_directory('test_files',new_video_file)
+
     return render_template('home.html')
 #>>>>>>> 7671fd093b3fcd980a062f0494aa34907698b8be
