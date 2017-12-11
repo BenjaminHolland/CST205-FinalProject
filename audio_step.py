@@ -41,18 +41,26 @@ class SinWave:
 
 
 def create_audio2(tracking,video_id):
+    
     sample_rate=44100
+    #extract a bunch of info from the tracking step. We should probably be using dictionaries
+    #but it's fine for now
     video_info=tracking[0]
     tracking_info=tracking[1]
+    
+    #calculate some stuff about the video that we need to generate audio
     samples_per_frame=int(sample_rate/video_info[0])
     total_samples=sample_rate*video_info[1]
     target_note=0
 
+    
     sample=0
     waveform=np.array([0])
     width=video_info[2]
     height=video_info[3]
 
+    #make some generators that let us wiggle the frequency around without
+    #getting choppy phase crap
     wave1=SinWave(44100,440,0.2)
     wave2=SinWave(44100,440,0.2)
     dx=0
@@ -61,30 +69,47 @@ def create_audio2(tracking,video_id):
     py=0
     first=True
     for center,dr in tracking_info:
+        
+        #get sample range for this frame. need to check if the range is actually correct.
         sample_start=sample;
         sample_end=sample+samples_per_frame
+        #if we have a new center, update the wave
         if(center!=None):
-            
-            nx=(center[0]-width/2)/width
-            ny=(center[1]-height/2)/height
+            #do a bunch of math to calculate distance from the center and angle
+            #normalized on the interval [0,1] so we cause use lerp for stuff
+
+            #object coord on [-1,1] interval
+            nx=2*((center[0]-width/2)/width) 
+            ny=2*((center[1]-height/2)/height)
            
-            dx=0.5+nx; #[0,1]
-            dy=0.5+ny; #[0,1]
+            dx=nx; #[0,1]
+            dy=ny; #[0,1]
+            #calculate normalized distance away from center
             d=np.sqrt(dx*dx+dy*dy)/np.sqrt(2)
+
+            #calculate normalized ange
             a=(1+np.arctan2(dy,dx)/np.pi)*0.5
 
+            #update generator target frequencies
             wave1.change_frequency(calc_note(int(lerp(40,52,d))))
             wave2.change_frequency(calc_note(int(lerp(20,40,a))))
             
+        #generate waveforms. If we dropped the tracked object, just use the stuff from last frame
         frame_waveform1=np.array([wave1.sample() for _ in range(0,samples_per_frame)])
         frame_waveform2=np.array([wave2.sample() for _ in range(0,samples_per_frame)])
+        
+        #add the waveforms together.
         frame_waveform=np.add(frame_waveform1,frame_waveform2)
 
+        #increment the sample counter
         sample=sample+samples_per_frame
+
+        #add the new samples to the list
         waveform=np.append(waveform,frame_waveform)
 
+    #output the waveform
     formatted_waveform=np.int16(waveform * 32767)
-    print(f'generated {len(formatted_wave)} samples.)
+    print(f'generated {len(formatted_waveform)} samples')
     write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
     return 'static/{video_id}.wav'
 
