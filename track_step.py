@@ -16,16 +16,17 @@ redUpper = (10, 255, 255)
 
 
 def run(video):
-    
+
     # Array to return (x, y) coordinates
     coordinates = []
 
     # Array to return how the radius changes per frame
     radius_change = []
 
-    previous_radius = -1;
-    
-    # get framerate. 
+    radius = -1
+    previous_radius = -1
+
+    # get framerate.
     # Find OpenCV version
     (major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
     fps=30
@@ -35,12 +36,12 @@ def run(video):
     else :
         fps = video.get(cv2.CAP_PROP_FPS)
     length = int(video.get(cv2.CAP_PROP_FRAME_COUNT))/float(fps)
-    width=video.get(cv2.CAP_PROP_FRAME_WIDTH) 
+    width=video.get(cv2.CAP_PROP_FRAME_WIDTH)
     height=video.get(cv2.CAP_PROP_FRAME_HEIGHT)
     while True:
         returned, frame = video.read()
-    
-     
+
+
         # Once the video has not returned a frame, the video is over
         if returned == 0:
             break
