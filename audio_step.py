@@ -37,7 +37,7 @@ class SinWave:
         self.target_frequency=freq
     def change_amplitude(self,amp):
         self.current_amplitude=amp
-        
+
 
 
 def create_audio2(tracking,video_id):
@@ -64,10 +64,10 @@ def create_audio2(tracking,video_id):
         sample_start=sample;
         sample_end=sample+samples_per_frame
         if(center!=None):
-            
+
             nx=(center[0]-width/2)/width
             ny=(center[1]-height/2)/height
-           
+
             dx=0.5+nx; #[0,1]
             dy=0.5+ny; #[0,1]
             d=np.sqrt(dx*dx+dy*dy)/np.sqrt(2)
@@ -75,7 +75,7 @@ def create_audio2(tracking,video_id):
 
             wave1.change_frequency(calc_note(int(lerp(40,52,d))))
             wave2.change_frequency(calc_note(int(lerp(20,40,a))))
-            
+
         frame_waveform1=np.array([wave1.sample() for _ in range(0,samples_per_frame)])
         frame_waveform2=np.array([wave2.sample() for _ in range(0,samples_per_frame)])
         frame_waveform=np.add(frame_waveform1,frame_waveform2)
@@ -84,7 +84,7 @@ def create_audio2(tracking,video_id):
         waveform=np.append(waveform,frame_waveform)
 
     formatted_waveform=np.int16(waveform * 32767)
-    print(f'generated {len(formatted_wave)} samples.)
+    print(f'generated {len(formatted_waveform)} samples')
     write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
     return 'static/{video_id}.wav'
 

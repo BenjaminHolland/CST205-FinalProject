@@ -1,0 +1,21 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+
+<div class-="container">
+
+<h1>Here is the video!!!</h1>
+
+<form method="post" enctype="multipart/form-data">
+  <p>
+    Please click browse to upload a video to add the audio for.
+  </p>
+  <video width = "320" height = "240" controls>
+    <source src=static/{{video}} type="video/mp4">
+  </video>
+  <input type="Submit" value="Home">
+</form>
+
+
+
+</div>
+{% endblock %}

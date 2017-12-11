@@ -11,7 +11,7 @@ import subprocess
 def run(video_id):
     audio_file=f'static/{video_id}.wav'
     video_file=f'static/{video_id}.mp4'
-    
+
     output_file=f'static/{video_id}.output.mp4'
     inputs=f"-i {video_file} -i {audio_file}"
     mapping="-map 0:0 -map 1:0"
