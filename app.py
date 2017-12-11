@@ -89,7 +89,7 @@ def brand():
     if request.method == 'POST':
         return redirect(url_for('home'))
 
-    return render_template('video.html', video=videos[len(videos) - 1])
+    return render_template('creation.html', video=videos[len(videos) - 1])
 
 @app.route('/videos/<video_number>', methods=['GET', 'POST'])
 def film(video_number):
