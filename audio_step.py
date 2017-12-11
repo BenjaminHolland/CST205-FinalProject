@@ -16,8 +16,8 @@ notes=list([calc_note(i) for i in range(40,52)])
 
 def lerp(a,b,x):
     return a+x*(b-a)
-def run(tracking,video_id):
-    create_audio2(tracking,video_id)
+def run(tracking,video_id,herz):
+    create_audio2(tracking,video_id,herz)
 class SinWave:
     def __init__(self,sample_rate,freq,amp):
         self.phase_step=np.pi*2*freq/sample_rate
@@ -40,7 +40,7 @@ class SinWave:
 
 
 
-def create_audio2(tracking,video_id):
+def create_audio2(tracking,video_id,herz):
     sample_rate=44100
     video_info=tracking[0]
     tracking_info=tracking[1]
@@ -53,8 +53,8 @@ def create_audio2(tracking,video_id):
     width=video_info[2]
     height=video_info[3]
 
-    wave1=SinWave(44100,440,0.2)
-    wave2=SinWave(44100,440,0.2)
+    wave1=SinWave(44100,herz,0.2)
+    wave2=SinWave(44100,herz,0.2)
     dx=0
     dy=0
     px=0
@@ -88,7 +88,7 @@ def create_audio2(tracking,video_id):
     write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
     return 'static/{video_id}.wav'
 
-def create_audio(tracking,video_id):
+def create_audio(tracking,video_id,intensity):
 
     samples_s = 44100
     duration_s = 0.15
@@ -96,9 +96,9 @@ def create_audio(tracking,video_id):
     waveform = []
     waveform_2 = []
 
-    for coord,dr in tracking:
-        note = 400 + coord[0]
-        speed = coord[1] / 1000
+    for item in tracking:
+        note = 400 + item[0]
+        speed = item[1] / 1000
 
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)

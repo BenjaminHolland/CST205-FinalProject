@@ -1,10 +1,10 @@
 <!--
-Title: video.html
+Title: creation.html
 Created by: Jacob A. Erickson
 Last Modified: 12/11/17
-Abstract: Html frame for the page that displays the actual videos,
+Abstract: Html frame for the page that displays the created video,
           has a button to download the video and a button to return
-          to the home page to add more videos or access old ones
+          to the home page to add more videos or access old ones.
 Created for Course: CST 205 - 1 Multimedia Design & Programing
 GitHub Link: https://github.com/BenjaminHolland/CST205-FinalProject
 -->
@@ -32,7 +32,7 @@ GitHub Link: https://github.com/BenjaminHolland/CST205-FinalProject
 
 <body class="container-fluid bg-2 text-center">
 
-  <h1>Here is the video you wanted.</h1>
+  <h1>Success!!! Here is your video!!!</h1>
 
   <form method="post" enctype="multipart/form-data">
     <div>
@@ -43,12 +43,12 @@ GitHub Link: https://github.com/BenjaminHolland/CST205-FinalProject
       </p>
       <!--The actual video-->
       <video width = "320" height = "240" controls>
-        <source src=/static/{{video}} type="video/mp4">
+        <source src="/static/{{video}}" type="video/mp4">
       </video>
     </div>
     <div>
       <!--download button-->
-      <a href=static/{{video}} download="{{video}}"><button style="color: black;" type="button">Download</button></a>
+      <a href=static/{{video}} download="static/{{video}}"><button style="color: black;" type="button">Download</button></a>
       <!--home button-->
       <input style="color: black;" type="Submit" value="Home">
     </div>
