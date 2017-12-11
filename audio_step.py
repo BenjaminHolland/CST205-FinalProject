@@ -16,8 +16,8 @@ notes=list([calc_note(i) for i in range(40,52)])
 
 def lerp(a,b,x):
     return a+x*(b-a)
-def run(tracking,video_id):
-    create_audio2(tracking,video_id)
+def run(tracking,video_id,herz):
+    create_audio2(tracking,video_id,herz)
 class SinWave:
     def __init__(self,sample_rate,freq,amp):
         self.phase_step=np.pi*2*freq/sample_rate
@@ -37,51 +37,61 @@ class SinWave:
         self.target_frequency=freq
     def change_amplitude(self,amp):
         self.current_amplitude=amp
-        
 
 
-def create_audio2(tracking,video_id):
-    
+def create_audio2(tracking,video_id,herz):
+
     sample_rate=44100
     #extract a bunch of info from the tracking step. We should probably be using dictionaries
     #but it's fine for now
     video_info=tracking[0]
     tracking_info=tracking[1]
-    
+
     #calculate some stuff about the video that we need to generate audio
     samples_per_frame=int(sample_rate/video_info[0])
     total_samples=sample_rate*video_info[1]
     target_note=0
 
-    
+
     sample=0
     waveform=np.array([0])
     width=video_info[2]
     height=video_info[3]
 
+    wave1=SinWave(44100,herz,0.2)
+    wave2=SinWave(44100,herz,0.2)
+
     #make some generators that let us wiggle the frequency around without
     #getting choppy phase crap
     wave1=SinWave(44100,440,0.2)
     wave2=SinWave(44100,440,0.2)
+
     dx=0
     dy=0
     px=0
     py=0
     first=True
     for center,dr in tracking_info:
-        
+
         #get sample range for this frame. need to check if the range is actually correct.
         sample_start=sample;
         sample_end=sample+samples_per_frame
         #if we have a new center, update the wave
         if(center!=None):
+
+            nx=(center[0]-width/2)/width
+            ny=(center[1]-height/2)/height
+
+            dx=0.5+nx; #[0,1]
+            dy=0.5+ny; #[0,1]
+
             #do a bunch of math to calculate distance from the center and angle
             #normalized on the interval [0,1] so we cause use lerp for stuff
 
             #object coord on [-1,1] interval
-            nx=2*((center[0]-width/2)/width) 
+            nx=2*((center[0]-width/2)/width)
             ny=2*((center[1]-height/2)/height)
-           
+
             dx=nx; #[0,1]
             dy=ny; #[0,1]
             #calculate normalized distance away from center
@@ -93,11 +103,11 @@ def create_audio2(tracking,video_id):
             #update generator target frequencies
             wave1.change_frequency(calc_note(int(lerp(40,52,d))))
             wave2.change_frequency(calc_note(int(lerp(20,40,a))))
-            
+
         #generate waveforms. If we dropped the tracked object, just use the stuff from last frame
         frame_waveform1=np.array([wave1.sample() for _ in range(0,samples_per_frame)])
         frame_waveform2=np.array([wave2.sample() for _ in range(0,samples_per_frame)])
-        
+
         #add the waveforms together.
         frame_waveform=np.add(frame_waveform1,frame_waveform2)
 
@@ -113,7 +123,7 @@ def create_audio2(tracking,video_id):
     write(f'static/{video_id}.wav',sample_rate, formatted_waveform)
     return 'static/{video_id}.wav'
 
-def create_audio(tracking,video_id):
+def create_audio(tracking,video_id,intensity):
 
     samples_s = 44100
     duration_s = 0.15
@@ -121,9 +131,9 @@ def create_audio(tracking,video_id):
     waveform = []
     waveform_2 = []
 
-    for coord,dr in tracking:
-        note = 400 + coord[0]
-        speed = coord[1] / 1000
+    for item in tracking:
+        note = 400 + item[0]
+        speed = item[1] / 1000
 
 
         sample_nums_x = np.arange((duration_s - speed) * samples_s)

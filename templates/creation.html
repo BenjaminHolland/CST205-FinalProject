@@ -1,0 +1,57 @@
+<!--
+Title: creation.html
+Created by: Jacob A. Erickson
+Last Modified: 12/11/17
+Abstract: Html frame for the page that displays the created video,
+          has a button to download the video and a button to return
+          to the home page to add more videos or access old ones.
+Created for Course: CST 205 - 1 Multimedia Design & Programing
+GitHub Link: https://github.com/BenjaminHolland/CST205-FinalProject
+-->
+
+{% extends "bootstrap/base.html" %}
+{% block content %}
+
+<head>
+  <style>
+    .bg-1 {
+      background-color: #1abc9c;
+      color: #ffffff;
+      margin: 10%;
+      position: absolute;
+      width: 50%;
+      height: 50%;
+    }
+
+    .bg-2 {
+      background-color: #bc3a1a;
+      color: #ffffff
+    }
+  </style>
+</head>
+
+<body class="container-fluid bg-2 text-center">
+
+  <h1>Success!!! Here is your video!!!</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    <div>
+      <p>
+        When you are done click the download button below to download your
+        video or the home button to return to the home page where you can
+        see a list of the videos you have made and make more.
+      </p>
+      <!--The actual video-->
+      <video width = "auto" height = "auto" controls>
+        <source src="static/{{video}}" type="video/mp4">
+      </video>
+    </div>
+    <div>
+      <!--download button-->
+      <a href=static/{{video}} download="static/{{video}}"><button style="color: black;" type="button">Download</button></a>
+      <!--home button-->
+      <input style="color: black;" type="Submit" value="Home">
+    </div>
+  </form>
+</body>
+{% endblock %}

@@ -39,6 +39,8 @@ Pipenv Install/Usage instructions:
 NOTE: There is currently a bug that causes this to launch a command prompt instead of powershell. To fix this, once you run step 5, also run "powershell ."
 6. run ./launch.ps1. This will launch flask.
 
+Videos displayed may not match what you create. In this case you can view your in the static folder.
+
 Link to GitHub Repo: https://github.com/BenjaminHolland/CST205-FinalProject
 
 ## Future Work

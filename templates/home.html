@@ -1,31 +1,90 @@
-<!--Created by: Jacob A. Erickson
-Last Modified: 12/10/17
+<!--
+Title: video.html
+Created by: Jacob A. Erickson
+Last Modified: 12/11/17
+Abstract: Html frame for the home page has prompts to guide the user,
+          an upload button that uploads a file, a drop down to adjust
+          sound intensity, a button to submit the file and the intensity.
+          Additionally there is a list that shows the previously made videos;
+          this contains both links to view them in a seperate page and a
+          button to download the video.
 Created for Course: CST 205 - 1 Multimedia Design & Programing
-The html code that styles the home page of the website created by app.py.-->
+GitHub Link: https://github.com/BenjaminHolland/CST205-FinalProject
+-->
 
 {% extends "bootstrap/base.html" %}
-
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{% block title %}Final Project{% endblock %}</title>
-</head>
-<body>
-  <div class="container">
 
-  <p><h1><b>Let's Dub Some Audio!!!</b></h1></p>
+<head>
+  <style>
+    .bg-1 {
+      background-color: #1abc9c;
+      color: #ffffff;
+      margin: 10%;
+      position: absolute;
+    }
+
+    .bg-2 {
+      background-color: #bc3a1a;
+      color: #ffffff
+    }
+  </style>
+</head>
+
+<body class="container-fluid bg-2 text-center">
+  <div class="container-fluid bg-1 text-center align: center">
+    <p>
+      <h1>Let's Dub Some Videos!!!</h1>
+    </p>
+
+  <div>
 
   <form method="post" enctype="multipart/form-data">
-    <p>
-      Please click browse to upload a video to add the audio for.
-    </p>
-    <input type="file" name="file" accept="video/*"><br>
-    <input class ="btn btn-primary" type="submit" value="Send">
-  </form>
 
+    <div>
+      <p>
+        To begin please select the lowest herz you would like your video to have.
+        You can use the drop down below to decide.
+      </p>
+      <!--Drop down box for choosing intensity-->
+      <select name="herz" style="color: black;">
+        {% for x in range(1000, 20001, 1000) %}
+          <option style="color: black;" value="{{x}}">{{x}} herz</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <p>
+        Next please choose the video you would like to use.
+      </p>
+    <!--the upload area-->
+    <input type="file" name="file" accept="video/*" required>
+    <!--submit button-->
+    <input style="color: black;" type="submit" value="Create New Video">
+    </div>
+
+    <div>
+      <p>
+        Below you can find the videos you made until now. Just be careful because if you close the program they will disapear.
+      </p>
+      <!--lists the videos made up to this point-->
+      {% for item in videos %}
+      <div>
+        <li>
+          <!--name of and link to the video-->
+          <a href="videos/{{item[0:-4]}}">Video {{videos.index(item)}}</a>
+          <!--download button-->
+          <a href=static/{{item}} download="Video {{videos.index(item)}}.mp4">
+            <button style="color: black;" type="button">
+              Download
+            </button>
+          </a>
+        </li>
+      </div>
+      {% endfor %}
+    </div>
+  </form>
   </div>
 </body>
-</html>
-
 {% endblock %}
